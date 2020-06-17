@@ -66,7 +66,9 @@ class Graph:
         Returns:
         Vertex: The new vertex object.
         """
-        pass
+        new_vertex = Vertex(vertex_id)
+        self.__vertex_dict[vertex_id] = new_vertex
+        return new_vertex
 
 
     def get_vertex(self, vertex_id):
@@ -85,7 +87,12 @@ class Graph:
         vertex_id1 (string): The unique identifier of the first vertex.
         vertex_id2 (string): The unique identifier of the second vertex.
         """
-        pass
+        if not (self.contains_id(vertex_id1) and self.contains_id(vertex_id2)):
+            return
+        vertex1 = self.get_vertex(vertex_id1)
+        vertex2 = self.get_vertex(vertex_id2)
+        vertex1.add_neighbor(vertex2)
+        vertex2.add_neighbor(vertex1)
 
     def get_vertices(self):
         """
@@ -195,14 +202,20 @@ class Graph:
         Returns:
         list<string>: All vertex ids that are `target_distance` away from the start vertex
         """
-        pass
+        queue = deque([(start_id, 0)])
+        vertices = []
+
+        while len(queue):
+            cur_id, cur_dist = queue.popleft()
+
+            if cur_dist == target_distance:
+                vertices.append(cur_id)
+            elif cur_dist < target_distance:
+                vertex = self.get_vertex(cur_id)
+                queue.extend(map(lambda neighbor: (neighbor, cur_dist+1),
+                                 vertex.get_neighbors()))
+        return vertices
+
 
     def topological_sort(self):
-        indegree0 = []
-        nodes = []
-        next_nodes = {}
-
-
-        while len(indegree0):
-            cur_node = indegree0.pop()
-            nodes.append(cur_node)
+        pass
