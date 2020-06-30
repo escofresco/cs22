@@ -1,6 +1,6 @@
 
 import unittest
-from gradescope_utils.autograder_utils.decorators import weight, visibility
+#from gradescope_utils.autograder_utils.decorators import weight, visibility
 from graphs.graph import Graph
 
 
@@ -16,7 +16,7 @@ class TestBipartite(unittest.TestCase):
         graph.add_edge('B','C')
 
         self.assertFalse(graph.is_bipartite())
-        
+
 
     def test_is_bipartite_cycle(self):
         """Test that a cycle on 4 vertices is bipartite."""
@@ -31,7 +31,7 @@ class TestBipartite(unittest.TestCase):
         graph.add_edge('A','D')
 
         self.assertTrue(graph.is_bipartite())
-        
+
 
     def test_is_bipartite_tree(self):
         """Test that a tree on 4 vertices is bipartite."""
@@ -125,6 +125,18 @@ class TestContainsCycle(unittest.TestCase):
 
         self.assertFalse(graph.contains_cycle())
 
+    def test_contains_cycle_undirected(self):
+        graph = Graph(is_directed=False)
+        graph.add_vertex('A')
+        graph.add_vertex('B')
+        graph.add_vertex('C')
+        graph.add_edge('A','B')
+        graph.add_edge('B','C')
+        graph.add_edge('C','A')
+
+        # This would be true if graph were directed
+        self.assertFalse(graph.contains_cycle())
+
 
 class TestTopologicalSort(unittest.TestCase):
     def test_topological_sort(self):
@@ -147,7 +159,7 @@ class TestTopologicalSort(unittest.TestCase):
         topo_sort = graph.topological_sort()
 
         self.assertIn(topo_sort, possible_sorts)
-        
+
 
 if __name__ == '__main__':
     unittest.main()
