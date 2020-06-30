@@ -60,7 +60,7 @@ class Graph:
         is_directed (boolean): Whether the graph is directed (edges go in only one direction).
         """
         self.vertex_dict = {} # id -> object
-        self.is_directed = is_directed
+        self.__is_directed = is_directed
 
     @property
     def is_directed(self):
