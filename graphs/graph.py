@@ -15,6 +15,9 @@ class Vertex(object):
         self.__id = vertex_id
         self.__neighbors_dict = {} # id -> object
 
+    def __lt__(self, other_vertex):
+        return self.get_id() < other_vertex.get_id()
+
     def add_neighbor(self, vertex_obj):
         """
         Add a neighbor by storing it in the neighbors dictionary.
@@ -22,6 +25,8 @@ class Vertex(object):
         Parameters:
         vertex_obj (Vertex): An instance of Vertex to be stored as a neighbor.
         """
+        if vertex_obj.get_id() in self.__neighbors_dict:
+            return
         self.__neighbors_dict[vertex_obj.get_id()] = vertex_obj
 
     def __str__(self):
@@ -35,11 +40,12 @@ class Vertex(object):
 
     def get_neighbors(self):
         """Return the neighbors of this vertex."""
-        return list(self.__neighbors_dict.values())
+        return tuple(self.__neighbors_dict.values())
 
     def get_id(self):
         """Return the id of this vertex."""
         return self.__id
+
 
 
 class Graph:
@@ -55,6 +61,10 @@ class Graph:
         """
         self.__vertex_dict = {} # id -> object
         self.__is_directed = is_directed
+
+    @property
+    def is_directed(self):
+        return self.__is_directed
 
     def add_vertex(self, vertex_id):
         """
@@ -73,11 +83,7 @@ class Graph:
 
     def get_vertex(self, vertex_id):
         """Return the vertex if it exists."""
-        if vertex_id not in self.__vertex_dict:
-            return None
-
-        vertex_obj = self.__vertex_dict[vertex_id]
-        return vertex_obj
+        return self.__vertex_dict.get(vertex_id)
 
     def add_edge(self, vertex_id1, vertex_id2):
         """
@@ -92,7 +98,9 @@ class Graph:
         vertex1 = self.get_vertex(vertex_id1)
         vertex2 = self.get_vertex(vertex_id2)
         vertex1.add_neighbor(vertex2)
-        vertex2.add_neighbor(vertex1)
+
+        if not self.__is_directed:
+            vertex2.add_neighbor(vertex1)
 
     def get_vertices(self):
         """
@@ -204,16 +212,19 @@ class Graph:
         """
         queue = deque([(start_id, 0)])
         vertices = []
+        seen = set()
 
         while len(queue):
             cur_id, cur_dist = queue.popleft()
 
-            if cur_dist == target_distance:
-                vertices.append(cur_id)
-            elif cur_dist < target_distance:
-                vertex = self.get_vertex(cur_id)
-                queue.extend(map(lambda neighbor: (neighbor, cur_dist+1),
-                                 vertex.get_neighbors()))
+            if cur_id not in seen:
+                if cur_dist == target_distance:
+                    vertices.append(cur_id)
+                elif cur_dist < target_distance:
+                    vertex = self.get_vertex(cur_id)
+                    queue.extend(map(lambda neighbor: (neighbor.get_id(), cur_dist+1),
+                                     vertex.get_neighbors()))
+                seen.add(cur_id)
         return vertices
 
 
