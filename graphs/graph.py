@@ -312,7 +312,40 @@ class Graph:
 
 
     def topological_sort(self):
-        raise NotImplemented
+        """
+        Use Khan's Algorithm by working through nodes with an indegree of 0
+        """
+        sorted_nodes = []
+        seen = set()
+        node_id_to_indegree = {node.get_id(): 0 for node in self.get_vertices()}
+
+        for node in self.get_vertices():
+
+            for neighbor in node.get_neighbors():
+                neighbor_id = neighbor.get_id()
+                node_id_to_indegree[neighbor_id] += 1
+        indegree0_nodes = [id for id,indegree in node_id_to_indegree.items()
+                           if indegree == 0]
+
+        while len(indegree0_nodes):
+            node_id = indegree0_nodes.pop()
+
+            if node_id not in seen:
+                sorted_nodes.append(node_id)
+
+                for neighbor in self.get_vertex(node_id).get_neighbors():
+                    neighbor_id = neighbor.get_id()
+                    node_id_to_indegree[neighbor_id] -= 1
+
+                    if node_id_to_indegree[neighbor_id] == 0:
+                        indegree0_nodes.append(neighbor_id)
+                seen.add(node_id)
+
+        if any(node_id_to_indegree.values()):
+            raise ValueError("Graph must be acyclic")
+        return sorted_nodes
+
+
 
     def contains_cycle(self):
         return self.strongly_connected_components(break_on_cycle=True) is None
