@@ -153,6 +153,18 @@ class Graph:
 
         return # everything has been processed
 
+    def is_bipartite(self):
+        """
+        Return True if the graph is bipartite, and False otherwise.
+        """
+        def bfs(node):
+
+        seen = set()
+
+        for node in self.get_vertices():
+
+
+
     def find_path_dfs_iter(self, start_id, target_id):
         """
         Use DFS with a stack to find a path from start_id to target_id.
@@ -194,8 +206,8 @@ class Graph:
         connected_components = []
 
         for node in self.get_vertices():
-            
-            if node not in seen:
+
+            if node.get_id() not in seen:
                 component = bfs(node)
 
                 if len(component):
