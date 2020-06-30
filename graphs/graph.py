@@ -172,6 +172,37 @@ class Graph:
                                  self.get_vertex(cur_id).get_neighbors()))
                 seen.add(cur_id)
 
+    def find_connected_components(self):
+        """
+        Return a list of all connected components, with each connected component
+        represented as a list of vertex ids.
+        """
+        def bfs(node):
+            visited = []
+            stack = [node]
+
+            while len(stack):
+                cur_node = stack.pop()
+                cur_node_id = cur_node.get_id()
+
+                if cur_node_id not in seen:
+                    visited.append(cur_node_id)
+                    stack.extend(cur_node.get_neighbors())
+                    seen.add(cur_node_id)
+            return visited
+        seen = set()
+        connected_components = []
+
+        for node in self.get_vertices():
+            
+            if node not in seen:
+                component = bfs(node)
+
+                if len(component):
+                    connected_components.append(component)
+        print(connected_components)
+        return connected_components
+
     def find_shortest_path(self, start_id, target_id):
         """
         Find and return the shortest path from start_id to target_id.
