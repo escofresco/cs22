@@ -167,6 +167,12 @@ class TestTopologicalSort(unittest.TestCase):
 
         self.assertIn(topo_sort, possible_sorts)
 
+    def test_cyclic_topological_sort(self):
+        filename = 'test_files/graph_medium_directed_cyclic.txt'
+        graph = read_graph_from_file(filename)
+
+        with self.assertRaises(ValueError):
+            graph.topological_sort()
 
 class TestStronglyConnectedComponents(unittest.TestCase):
     def test_simple_scc(self):
