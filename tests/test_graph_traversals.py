@@ -2,6 +2,7 @@
 import unittest
 #from gradescope_utils.autograder_utils.decorators import weight, visibility
 from graphs.graph import Graph
+from util.file_reader import read_graph_from_file
 
 
 class TestBipartite(unittest.TestCase):
@@ -100,6 +101,12 @@ class TestContainsCycle(unittest.TestCase):
 
         self.assertTrue(graph.contains_cycle())
 
+    def test_contains_cycle_medium(self):
+        filename = 'test_files/graph_medium_directed_cyclic.txt'
+        graph = read_graph_from_file(filename)
+
+        self.assertTrue(graph.contains_cycle())
+
     def test_does_not_contain_cycle_tree(self):
         """Test that a tree on 4 vertices does not contain a cycle."""
         graph = Graph(is_directed=True)
@@ -135,7 +142,7 @@ class TestContainsCycle(unittest.TestCase):
         graph.add_edge('C','A')
 
         # This would be true if graph were directed
-        self.assertFalse(graph.contains_cycle())
+        self.assertTrue(graph.contains_cycle())
 
 
 class TestTopologicalSort(unittest.TestCase):
@@ -160,6 +167,17 @@ class TestTopologicalSort(unittest.TestCase):
 
         self.assertIn(topo_sort, possible_sorts)
 
+
+class TestStronglyConnectedComponents(unittest.TestCase):
+    def test_simple_scc(self):
+        filename = 'test_files/graph_medium_directed_cyclic.txt'
+        graph = read_graph_from_file(filename)
+        scc = graph.strongly_connected_components()
+
+        for actual, expected in zip(scc, (('A', 'E'), ('B', 'C', 'F'),
+                                          ('D', 'G', 'H'))):
+            with self.subTest(expected):
+                self.assertCountEqual(actual, expected)
 
 if __name__ == '__main__':
     unittest.main()
