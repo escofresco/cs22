@@ -1,0 +1,15 @@
+D
+A,B,C,D,  E,F,G,H
+(A,B)
+(A,E)
+(B,F)
+(C,D)
+(C,G)
+(C,B)
+(D,G)
+(E,A)
+(E,F)
+(F,C)
+(F,G)
+(G,H)
+(H,D)
