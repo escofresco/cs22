@@ -12,8 +12,8 @@ class Vertex(object):
         Parameters:
         vertex_id (string): A unique identifier to identify this vertex.
         """
-        self.__id = vertex_id
-        self.__neighbors_dict = {} # id -> object
+        self.id = vertex_id
+        self.neighbors_dict = {} # id -> object
 
     def __lt__(self, other_vertex):
         return self.get_id() < other_vertex.get_id()
@@ -31,8 +31,8 @@ class Vertex(object):
 
     def __str__(self):
         """Output the list of neighbors of this vertex."""
-        neighbor_ids = list(self.__neighbors_dict.keys())
-        return f'{self.__id} adjacent to {neighbor_ids}'
+        neighbor_ids = list(self.neighbors_dict.keys())
+        return f'{self.id} adjacent to {neighbor_ids}'
 
     def __repr__(self):
         """Output the list of neighbors of this vertex."""
@@ -44,7 +44,7 @@ class Vertex(object):
 
     def get_id(self):
         """Return the id of this vertex."""
-        return self.__id
+        return self.id
 
 
 
@@ -59,8 +59,8 @@ class Graph:
         Parameters:
         is_directed (boolean): Whether the graph is directed (edges go in only one direction).
         """
-        self.__vertex_dict = {} # id -> object
-        self.__is_directed = is_directed
+        self.vertex_dict = {} # id -> object
+        self.is_directed = is_directed
 
     @property
     def is_directed(self):
@@ -109,10 +109,10 @@ class Graph:
         Returns:
         List<Vertex>: The vertex objects contained in the graph.
         """
-        return list(self.__vertex_dict.values())
+        return list(self.vertex_dict.values())
 
     def contains_id(self, vertex_id):
-        return vertex_id in self.__vertex_dict
+        return vertex_id in self.vertex_dict
 
     def __str__(self):
         """Return a string representation of the graph."""
@@ -138,7 +138,7 @@ class Graph:
         queue.append(self.get_vertex(start_id))
 
         while queue:
-            current_vertex_obj = queue.pop()
+            current_vertex_obj = queue.popleft()
             current_vertex_id = current_vertex_obj.get_id()
 
             # Process current node

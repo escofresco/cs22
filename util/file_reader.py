@@ -55,10 +55,3 @@ def next_alnum(line):
         if char ==  ',':
             yield ''.join(word)
             word = []
-
-
-if __name__ == '__main__':
-
-    graph = read_graph_from_file('test.txt')
-
-    print(graph)
