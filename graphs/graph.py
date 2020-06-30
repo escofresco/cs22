@@ -158,11 +158,37 @@ class Graph:
         Return True if the graph is bipartite, and False otherwise.
         """
         def bfs(node):
+            queue = deque(((node, 0),))
 
-        seen = set()
+            while len(queue):
+                cur_node, parity = queue.popleft()
+                cur_node_id = cur_node.get_id()
+
+                # if cur_node_id in node_to_parity:
+                #     if node_to_parity[cur_node_id] != parity:
+                #         # Node has parity of parity
+                #         return False
+                # else:
+                for neighbor in cur_node.get_neighbors():
+                    neighbor_id = neighbor.get_id()
+
+                    if neighbor_id in node_to_parity:
+
+                        if node_to_parity[neighbor_id] == parity:
+                            return False
+                    else:
+                        queue.append((neighbor, parity^1))
+                node_to_parity[cur_node_id] = parity
+        node_to_parity = {}
 
         for node in self.get_vertices():
 
+            if node.get_id() not in node_to_parity:
+                if bfs(node) is False:
+                    print(node_to_parity)
+                    return False
+
+        return True
 
 
     def find_path_dfs_iter(self, start_id, target_id):
@@ -212,7 +238,6 @@ class Graph:
 
                 if len(component):
                     connected_components.append(component)
-        print(connected_components)
         return connected_components
 
     def find_shortest_path(self, start_id, target_id):
