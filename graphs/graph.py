@@ -164,11 +164,6 @@ class Graph:
                 cur_node, parity = queue.popleft()
                 cur_node_id = cur_node.get_id()
 
-                # if cur_node_id in node_to_parity:
-                #     if node_to_parity[cur_node_id] != parity:
-                #         # Node has parity of parity
-                #         return False
-                # else:
                 for neighbor in cur_node.get_neighbors():
                     neighbor_id = neighbor.get_id()
 
