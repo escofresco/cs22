@@ -60,6 +60,15 @@ class TestGraph(unittest.TestCase):
         self.assertEqual(
             graph.minimum_spanning_tree_prim(), expected_mst_weight)
 
+    def test_mst_kruskal(self):
+        """Create a weighted graph."""
+        graph = self.make_large_graph()
+
+        expected_mst_weight = 37
+
+        self.assertEqual(
+            sum(weight for _, _, weight in graph.minimum_spanning_tree_kruskal()),
+            expected_mst_weight)
 
     def test_shortest_path(self):
         graph = self.make_large_graph()
