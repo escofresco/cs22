@@ -222,7 +222,7 @@ class WeightedGraph(Graph):
         vertex_to_distance = {vertex: float('inf')
                               for vertex in self.get_vertices()}
         vertex_to_distance[self.get_vertex(start_id)] = 0
-        total = 0#float('inf')
+        total = 0
 
         while len(vertex_to_distance):
             # While `vertex_to_distance` is not empty:
@@ -238,7 +238,7 @@ class WeightedGraph(Graph):
                     closest_vertex = vertex
                     min_distance = distance
             del vertex_to_distance[closest_vertex]
-            total += min_distance#= min(total, min_distance)
+            total += min_distance
 
             if closest_vertex.get_id() == target_id:
                 return min_distance
