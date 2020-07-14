@@ -1,5 +1,4 @@
 from collections import defaultdict, deque, namedtuple
-from dataclasses import dataclass
 
 class Vertex(object):
     """
@@ -412,12 +411,14 @@ class Graph:
                     if break_on_cycle:
                         # Cycle detected
                         return
-        @dataclass
+                    
         class NodeData:
             __slots__ = ("scc_id", "lowlink_val", "is_on_stack")
-            scc_id: int
-            lowlink_val: int
-            is_on_stack: bool
+
+            def __init__(self, scc_id, lowlink_val, is_on_stack):
+                self.scc_id = scc_id
+                self.lowlink_val = lowlink_val
+                self.is_on_stack = is_on_stack
         node_count = len(self.__vertex_dict)
         # Map vertex id to strongly connected component (scc) id
         vertexid_to_node_data = {}
