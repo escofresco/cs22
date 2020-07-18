@@ -14,7 +14,7 @@ If you've ever used Microsoft Paint, you may remember the flood fill feature. Th
 
 3. Compare and contrast Breadth-first Search and Depth-first Search by providing one similarity and one difference.
 
-Breadth-first Search (BFS) and Depth-first Search (DFS) are both graph traversal methods. A difference between them is that BFS visits all nodes in order by DFS visits nodes in a sweeping fashion.
+Breadth-first Search (BFS) and Depth-first Search (DFS) are both graph traversal methods. A difference between them is that BFS visits all nodes in order while DFS visits nodes in a sweeping fashion.
 
 4. Explain why a Depth-first Search traversal does not necessarily find the shortest path between two vertices. What is one such example of a graph where a DFS search would not find the shortest path?
 
