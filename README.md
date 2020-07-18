@@ -11,3 +11,9 @@ Breadth-first Search (BFS) in graphs may end up visiting the same node more than
 2. What is one application of Breadth-first Search (besides social networks)? Describe how BFS is used for that application. If you need some ideas, check out [this article](https://www.geeksforgeeks.org/applications-of-breadth-first-traversal/?ref=rp).
 
 If you've ever used Microsoft Paint, you may remember the flood fill feature. Their implementation of may have involved the use of breadth-first search. A canvas can be represented as a graph of pixels. And when a node (pixel) is clicked, all the neighboring nodes are filled with the new, selected color.
+
+3. Compare and contrast Breadth-first Search and Depth-first Search by providing one similarity and one difference.
+
+4. Explain why a Depth-first Search traversal does not necessarily find the shortest path between two vertices. What is one such example of a graph where a DFS search would not find the shortest path?
+
+5. Explain why we cannot perform a topological sort on a graph containing a cycle.
