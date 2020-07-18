@@ -21,4 +21,5 @@ Breadth-first Search (BFS) and Depth-first Search (DFS) are both graph traversal
 DFS exits when it finds the first correct path between two nodes. The reason this isn't guaranteed to find the shortest path is because the first correct path may not be the shortest path. An example is any graph where more than one path exists between two nodes and the shortest path isn't evaluated first.
 
 5. Explain why we cannot perform a topological sort on a graph containing a cycle.
+
 The topological invariant is that for any two directly connected nodes, there can only be one ordering. So even if there are multiple topological orderings, there can't be ambiguity about the relative ordering of a locally connected group of nodes.
